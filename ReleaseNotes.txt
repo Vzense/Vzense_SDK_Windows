@@ -1,4 +1,4 @@
-﻿V3.0.0.7
+﻿V3.0.0.8
 1. Fix some bug
 2. Support DCAM800Lite,
  
