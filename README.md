@@ -7,6 +7,7 @@ VzenseSDK_Windows
 - DCAM710
 - DCAM800
 - DCAM800Lite
+- DCAM305
 
 ### Summary Of The Guidelines
 
