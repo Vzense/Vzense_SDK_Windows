@@ -1,5 +1,5 @@
-#ifndef VZENSE_API_800_H
-#define VZENSE_API_800_H
+#ifndef VZENSE_API_305_H
+#define VZENSE_API_305_H
 
 /**
 * @file Vzense_api2.h
@@ -11,7 +11,7 @@
 *
 * \section intro_sec Introduction
 *
-* Welcome to the Vzense API documentation. This documentation enables you to quickly get started in your development efforts to programmatically interact with the Vzense TOF RGBD Camera (DCAM710).
+* Welcome to the Vzense API documentation. This documentation enables you to quickly get started in your development efforts to programmatically interact with the Vzense TOF RGBD Camera (DCAM305).
 */
 
 #include "VZense_define.h"
@@ -147,6 +147,7 @@ VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetDepthRange(PsDeviceHandle device, uint
 */
 VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetDepthRange(PsDeviceHandle device, uint32_t sessionIndex, PsDepthRange depthRange);
 
+
 /**
 * @brief 		Returns the threshold value for the background filter from the device specified by <code>device</code>. \n
 The value represents the cut-off point for distant data that the filter should ignore. \n
@@ -247,31 +248,32 @@ VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetCameraParameters(PsDeviceHandle device
 VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetCameraExtrinsicParameters(PsDeviceHandle device, uint32_t sessionIndex, PsCameraExtrinsicParameters* pCameraExtrinsicParameters);
 
 /**
-* @brief 		Sets the WDR output mode.
-* @param[in]	device			The handle of the device on which to set the mode.
+* @brief 		Sets the color image pixel format on the device specified by <code>device</code>. Currently only RGB and BGR formats are supported.
+* @param[in] 	device			The handle of the device to set the pixel format. 
 * @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
-* @param[in]	pWDRMode 		The WDR output mode to set. See ::PsWDROutputMode for more information.
+* @param[in] 	pixelFormat		The color pixel format to use. Pass in one of the values defined by ::PsPixelFormat. Currently only <code>PsPixelFormatRGB888</code> and <code>PsPixelFormatBGR888</code> are supported.
 * @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
 */
-VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetWDROutputMode(PsDeviceHandle device, uint32_t sessionIndex, PsWDROutputMode* pWDRMode);
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetColorPixelFormat(PsDeviceHandle device, uint32_t sessionIndex, PsPixelFormat pixelFormat);
 
 /**
-* @brief		Gets the current WDR output mode.
-* @param[in]	device			The handle of the device on which to get the mode from.
+* @brief 		Sets the RGB frame Resolution.
+* @param[in]	device			The handle of the device on which to set the GMM gain.
 * @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
-* @param[out]	pWDRMode 		A pointer to a ::PsWDROutputMode variable in which to store the current WDR output mode.
-* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+* @param[in] 	resolution		The resolution value to set. See ::PsResolution for more information.
+* @return		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
 */
-VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetWDROutputMode(PsDeviceHandle device, uint32_t sessionIndex, PsWDROutputMode* pWDRMode);
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetRGBResolution(PsDeviceHandle device, uint32_t sessionIndex, PsResolution resolution);
 
 /**
-* @brief 		Sets the WDR style on the device.
-* @param[in] 	device			The handle of the device on which to set the WDR style.
+* @brief 		Returns the the RGB frame Resolution.
+* @param[in]	device			The handle of the device from which to get the GMM gain.
 * @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
-* @param[in] 	wdrStyle 		The wide dynamic range merge style to use. See ::PsWDRStyle for more information.
-* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+* @param[out] 	resolution 		Pointer to a variable in which to store the returned resolution.
+* @return		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
 */
-VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetWDRStyle(PsDeviceHandle device, uint32_t sessionIndex, PsWDRStyle wdrStyle);
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetRGBResolution(PsDeviceHandle device, uint32_t sessionIndex, uint16_t* resolution);
+
 /**
 * @brief 		Gets the MeasuringRange in depthRange.
 * @param[in] 	device			The handle of the device on which to set the WDR style.
@@ -337,42 +339,6 @@ VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetSynchronizeEnabled(PsDeviceHandle devi
 * @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
 */
 VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetSynchronizeEnabled(PsDeviceHandle device, uint32_t sessionIndex, bool *bEnabled);
-
-/**
-* @brief 		Enables or disables the depth distortion correction feature.
-* @param[in]	device			The handle of the device on which to enable or disable the feature. 
-* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
-* @param[in] 	bEnabled		Set to <code>true</code> to enable the feature or <code>false</code> to disable the feature.
-* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
-*/
-VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetDepthDistortionCorrectionEnabled(PsDeviceHandle device, uint32_t sessionIndex, bool bEnabled);
-
-/**
-* @brief 		Returns the Boolean value of whether the depth distortion correction feature is enabled or disabled.
-* @param[in]	device			The handle of the device on which to enable or disable the feature. 
-* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
-* @param[out]	bEnabled		Pointer to a variable in which to store the returned Boolean value.
-* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
-*/
-VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetDepthDistortionCorrectionEnabled(PsDeviceHandle device, uint32_t sessionIndex, bool *bEnabled);
-
-/**
-* @brief 		Enables or disables the Ir distortion correction feature.
-* @param[in]	device			The handle of the device on which to enable or disable the feature.
-* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
-* @param[in] 	bEnabled		Set to <code>true</code> to enable the feature or <code>false</code> to disable the feature.
-* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
-*/
-VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetIrDistortionCorrectionEnabled(PsDeviceHandle device, uint32_t sessionIndex, bool bEnabled);
-
-/**
-* @brief 		Returns the Boolean value of whether the Ir distortion correction feature is enabled or disabled.
-* @param[in]	device			The handle of the device on which to enable or disable the feature. 
-* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
-* @param[out]	bEnabled		Pointer to a variable in which to store the returned Boolean value.
-* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
-*/
-VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetIrDistortionCorrectionEnabled(PsDeviceHandle device, uint32_t sessionIndex, bool *bEnabled);
 
 /**
 * @brief		Enables or disables the ComputeRealDepth feature.
@@ -447,6 +413,15 @@ VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetDepthFrameEnabled(PsDeviceHandle devic
 VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetIrFrameEnabled(PsDeviceHandle device, uint32_t sessionIndex, bool bEnabled);
 
 /**
+* @brief		Enables or disables the RGB Stream feature.
+* @param[in]	device			The handle of the device on which to enable or disable the feature.
+* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
+* @param[in]	bEnabled		Set to <code>true</code> to enable the feature or <code>false</code> to disable the feature.
+* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+*/
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetRgbFrameEnabled(PsDeviceHandle device, uint32_t sessionIndex, bool bEnabled);
+
+/**
 * @brief		Sets the ImageMirror feature.
 * @param[in]	device			The handle of the device on which to enable or disable the feature.
 * @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
@@ -464,4 +439,64 @@ VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetImageMirror(PsDeviceHandle device, uin
 */
 VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetImageRotation(PsDeviceHandle device, uint32_t sessionIndex, int32_t type);
 
-#endif /* VZENSE_API_800_H */
+/**
+* @brief 		Enables or disables mapping of the depth image to RGB space on the device. When enabled, PsGetFrame() can\n
+*        		be invoked passing ::PsMappedRGBFrame as the frame type, to get the depth frame that is mapped to RGB space. The resolution of\n
+*        		the mapped rgb frame is the same as that of the depth image.
+* @param[in] 	device			The handle of the device on which to enable or disable mapping.
+* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
+* @param[in] 	bEnabled 		Set to <code>true</code> to enable the feature or <code>false</code> to disable the feature.
+* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+*/
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetMapperEnabledDepthToRGB(PsDeviceHandle device, uint32_t sessionIndex, bool bEnabled);
+
+/**
+* @brief 		Returns the Boolean value of whether the mapping of the depth image to RGB space feature is enabled or disabled.
+* @param[in]	device			The handle of the device on which to enable or disable the feature.
+* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
+* @param[out]	bEnabled		Pointer to a variable in which to store the returned Boolean value.
+* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+*/
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetMapperEnabledDepthToRGB(PsDeviceHandle device, uint32_t sessionIndex, bool *bEnabled);
+
+/**
+* @brief 		Enables or disables mapping of the RGB image to depth space on the device. When enabled, PsGetFrame()\n
+can be invoked passing ::PsMappedDepthFrame as the frame type, to get the RGB frame that is mapped to depth space. The resolution\n
+of the mapped depth frame is the same as that of the RGB image.
+* @param[in] 	device			The handle of the device on which to enable or disable mapping.
+* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
+* @param[in] 	bEnabled 		Set to <code>true</code> to enable the feature or <code>false</code> to disable the feature.
+* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+*/
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetMapperEnabledRGBToDepth(PsDeviceHandle device, uint32_t sessionIndex, bool bEnabled);
+
+/**
+* @brief 		Returns the Boolean value of whether the mapping of the RGB image to depth space feature is enabled or disabled.
+* @param[in]	device			The handle of the device on which to enable or disable the feature.
+* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
+* @param[out]	bEnabled		Pointer to a variable in which to store the returned Boolean value.
+* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+*/
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetMapperEnabledRGBToDepth(PsDeviceHandle device, uint32_t sessionIndex, bool *bEnabled);
+
+/**
+* @brief		Enables or disables mapping of the RGB image to IR on the device. When enabled,\n
+PsGetFrame() can be invoked passing ::PsMappedIRFrame as the frame type, to get the RGB frame that is mapped to IR space. The resolution\n
+of the mapped ir frame is the same as that of the RGB image.
+* @param[in] 	device			The handle of the device on which to enable or disable mapping.
+* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
+* @param[in] 	bEnabled 		Set to <code>true</code> to enable the feature or <code>false</code> to disable the feature.
+* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+*/
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_SetMapperEnabledRGBToIR(PsDeviceHandle device, uint32_t sessionIndex, bool bEnabled);
+
+/**
+* @brief 		Returns the Boolean value of whether the mapping of the RGB image to IR space feature is enabled or disabled.
+* @param[in]	device			The handle of the device on which to enable or disable the feature.
+* @param[in] 	sessionIndex	The index of the session. See ::Ps2_StartStream() & ::Ps2_StopStream() api for more information.
+* @param[out]	bEnabled		Pointer to a variable in which to store the returned Boolean value.
+* @return 		::PsRetOK		if the function succeeded, or one of the error values defined by ::PsReturnStatus.
+*/
+VZENSE_C_API_EXPORT PsReturnStatus Ps2_GetMapperEnabledRGBToIR(PsDeviceHandle device, uint32_t sessionIndex, bool *bEnabled);
+
+#endif /* VZENSE_API_305_H */

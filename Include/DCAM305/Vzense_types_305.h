@@ -1,14 +1,33 @@
-#ifndef VZENSE_TYPES_800_H
-#define VZENSE_TYPES_800_H
+#ifndef VZENSE_TYPES_305_H
+#define VZENSE_TYPES_305_H
 
 #include <stdint.h>
-#include "Vzense_enums_800.h"
+#include "Vzense_enums_305.h"
 
 typedef uint16_t PsDepthPixel;  //!< Depth image pixel type in 16-bit
 typedef uint16_t PsGray16Pixel; //!< Gray image pixel type in 16-bit
 typedef uint8_t PsGray8Pixel;   //!< Gray image pixel type in 8-bit
 
 #pragma pack (push, 1)
+/**
+ * @brief Color image pixel type in 24-bit RGB format.
+ */
+typedef struct
+{
+	uint8_t r;	//!< Red
+	uint8_t g;	//!< Green
+	uint8_t b;	//!< Blue
+} PsRGB888Pixel;
+
+/**
+ * @brief Color image pixel type in 24-bit BGR format.
+ */
+typedef struct
+{
+	uint8_t b;	//!< Blue
+	uint8_t g;	//!< Green
+	uint8_t r;	//!< Red
+} PsBGR888Pixel;
 
 /**
  * @brief Specifies the frame mode including the pixel format, resolution, and frame rate.
@@ -83,20 +102,6 @@ typedef struct
 	uint16_t       width;		  //!< The width of the frame, in pixels.
 	uint16_t       height;        //!< The height of the frame, in pixels.
 }PsFrame;
-
-/** 
- * @brief WDR (Wide Dynamic Range) output mode settings (e.g. Near/Far range fusion).
- */
-typedef struct
-{	 
-	PsWDRTotalRange totalRange;  //!< The number of ranges supported. Currently only two or three ranges are supported (e.g. Near/Far or Near/Mid/Far).
-	PsDepthRange    range1;      //!< The first range.
-	uint8_t         range1Count; //!< The count of successive <code>range1</code> frames.
-	PsDepthRange    range2;      //!< The second range.
-	uint8_t         range2Count; //!< The count of successive <code>range2</code> frames.
-	PsDepthRange    range3;      //!< Third range. This range only takes effect when <code>totalRange</code> is set to <code>3</code>.
-	uint8_t         range3Count; //!< The count of successive <code>range3</code> frames. This only takes effect when <code>totalRange</code> is set to <code>3</code>.
-}PsWDROutputMode;
 
 /**
  * @brief Specifies the GMMGain including the gain value and option type.
@@ -196,4 +201,4 @@ typedef struct
 }PsSessionInfo;
 #pragma pack (pop)
 
-#endif /* VZENSE_TYPES_800_H */
+#endif /* VZENSE_TYPES_H */

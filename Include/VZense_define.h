@@ -1,8 +1,8 @@
 #ifndef VZENSE_DEFINE_H
 #define VZENSE_DEFINE_H
 
-#include "VZense_enums.h"
-#include "VZense_types.h"
+#include "Vzense_enums.h"
+#include "Vzense_types.h"
 
 #ifdef PS_EXPORT_ON
     #ifdef _WIN32

@@ -1,5 +1,5 @@
-#ifndef VZENSE_ENUMS_710_H
-#define VZENSE_ENUMS_710_H
+#ifndef VZENSE_ENUMS_305_H
+#define VZENSE_ENUMS_305_H
 
 /**
  * @brief Depth range setting.\n 
@@ -23,20 +23,8 @@ typedef enum {
  * @brief The data modes that determine the frame output from the device and the frame rate (fps). 
  */
 typedef enum{
-	PsDepthAndRGB_30 = 0,           //!< Output both depth and RGB frames at 30 fps. The resolution of a depth frame is 640*480.\n 
-	                                //!< The resolution of an RGB frame can be set using ::PsSetFrameMode(), which supports 1920*1080/1280*720/640*360.
-	PsIRAndRGB_30 = 1,              //!< Outputs both IR and RGB frames at 30 fps. The resolution of an IR frame is 640*480.\n 
-	                                //!< The resolution of an RGB frame can be set using ::PsSetFrameMode(), which supports 1920*1080/1280*720/640*360.
-	PsDepthAndIR_30 = 2,            //!< Outputs both depth and IR frames at 30 fps. The resolution for both depth and IR frames is 640*480.
-	PsNoCCD_30 = 4,                 //!< Reserved for internal use.
-	PsDepthAndIR_15_RGB_30 = 10,    //!< Outputs depth and IR frames at 15 fps, alternating between the two. The resolution of both depth and IR frames is 640*480.\n 
-	                                //!< The resolution of an RGB frame can be set using ::PsSetFrameMode(), which supports 1920*1080/1280*720/640*360.
-	PsWDR_Depth = 11,               //!< WDR (Wide Dynamic Range) depth mode. Supports alternating multi-range depth frame output (e.g. Near/Far/Near/Far/Near).
-	PsWDR_IR = 12,                  //!< WDR (Wide Dynamic Range) IR mode. Not currently implemented.
-	PsWDR_DepthAndIR = 13,          //!< WDR (Wide Dynamic Range) Depth and IR mode. Not currently implemented.
-
-	PsScanFace = 100,
-	PsScanCode,
+	PsDepthAndIR15_RGB30 = 100,
+	PsRGB30 ,
 	PsStandBy 
 }PsDataMode;
 
@@ -45,7 +33,7 @@ typedef enum{
  */
 typedef enum{
 	PsPropertySN_Str = 5,           //!< Device serial number (e.g.PD7110CGC9270020W). The maximum length is 64 bytes.
-	PsPropertyFWVer_Str = 6,        //!< Device firmware version number (e.g. DCAM710_c086_pc_sv0.01_R6_20180917_b35). The maximum length is 64 bytes.
+	PsPropertyFWVer_Str = 6,        //!< Device firmware version number (e.g. DCAM305_c086_pc_sv0.01_R6_20180917_b35). The maximum length is 64 bytes.
 	PsPropertyHWVer_Str = 7,        //!< Device hardware version number (e.g. R6). The maximum length is 64 bytes.
 	PsPropertyDataMode_UInt8 = 8,   //!< Sets the data mode when invoking ::PsSetDataMode(). See ::PsDataMode for more information.
 	PsPropertyDataModeList = 9,		//!< Gets the data mode lists that the device support
@@ -67,7 +55,7 @@ typedef enum{
 typedef enum{
 	PsDepthFrame = 0,              //!< Depth frame with 16 bits per pixel in millimeters.
 	PsIRFrame = 1,                 //!< IR frame with 16 bits per pixel.
-	PsGrayFrame = 2,               //!< Mono gray frame with 8 bits per pixel. Not current available on the DCAM710.
+	PsGrayFrame = 2,               //!< Mono gray frame with 8 bits per pixel. Not current available on the DCAM305.
 	PsRGBFrame = 3,                //!< RGB frame with 24 bits per pixel in RGB/BGR format.
 	PsMappedRGBFrame = 4,          //!< RGB frame with 24 bits per pixel in RGB/BGR format, that is mapped to depth camera space where the resolution is the same as the depth frame's resolution.\n 
 	                               //!< This frame type can be enabled using ::PsSetMapperEnabledDepthToRGB().
@@ -125,32 +113,7 @@ typedef enum{
 
 	PsRetOthers = -255,	             //!< An unknown error occurred.
 }PsReturnStatus;
-
-/** 
- * @brief Specifies the filter type.
- */
-typedef enum
-{
-	PsComputeRealDepthFilter = 0,   //!< Compute the real depth, in the depth camera coordinate system. Enabled by default.
-	PsSmoothingFilter,              //!< Smoothing filter. Enabled by default.
-}PsFilterType;
-
-/**
- * @brief Specifies the number of depth ranges defined for WDR. Currently only two or three ranges are supported (e.g. Near/Far or Near/Mid/Far).
- */
-typedef enum {
-	PsWDRTotalRange_Two = 2,	//!< Two depth ranges.
-	PsWDRTotalRange_Three = 3	//!< Three depth ranges.
-}PsWDRTotalRange;
-
-/** @brief The WDR style setting used for ::PsSetWDRStyle(). This determines if the WDR image output is a fusion from multiple ranges (e.g. Near/Far fusion)\n 
- * or an alternative output (e.g. Near/Far/Near/Far ... ).
- */ 
-typedef enum {
-	PsWDR_FUSION = 0,              //!< WDR image output is fused from multiple ranges.
-	PsWDR_ALTERNATION = 1          //!< WDR image output alternates between depths (e.g. Near/Far/Near/Far ... ).
-}PsWDRStyle;
-
+ 
 /** @brief Stream type 
  */
 typedef enum {
@@ -169,12 +132,6 @@ typedef enum {
 	PsRGB_Resolution_640_480 = 2,
 	PsRGB_Resolution_640_360 = 3,
 }PsResolution;
-
-//typedef enum {
-//	PsScanFace = 1,               															// Resolution of RGB can be set by PsSetFrameMode api, which support 1920* 
-//	PsScanCode = 2,               															// Resolution of RGB can be set by PsSetFrameMode api, which support 1920* 
-//	PsStandBy = 3,               															// Resolution of RGB can be set by PsSetFrameMode api, which support 1920* 
-//}PsTecentMode;
 
 typedef enum
 {
@@ -203,4 +160,4 @@ typedef enum
 	DCAM800LITE = 802,
 	MAX,
 }PsDeviceType;
-#endif /* VZENSE_ENUMS_710_H */
+#endif /* VZENSE_ENUMS_305_H */

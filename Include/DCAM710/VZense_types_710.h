@@ -2,7 +2,7 @@
 #define VZENSE_TYPES_710_H
 
 #include <stdint.h>
-#include "VZense_enums_710.h"
+#include "Vzense_enums_710.h"
 
 typedef uint16_t PsDepthPixel;  //!< Depth image pixel type in 16-bit
 typedef uint16_t PsGray16Pixel; //!< Gray image pixel type in 16-bit

@@ -2,28 +2,28 @@
 #define VZENSE_API_710_H
 
 /**
-* @file picozense_api2.h
-* @brief VZense API header file.
+* @file Vzense_api2.h
+* @brief Vzense API header file.
 * Copyright (c) 2018-2019 V Interactive, Inc.
 */
 
-/*! \mainpage VZense API Documentation
+/*! \mainpage Vzense API Documentation
 *
 * \section intro_sec Introduction
 *
-* Welcome to the VZense API documentation. This documentation enables you to quickly get started in your development efforts to programmatically interact with the VZense TOF RGBD Camera (DCAM710).
+* Welcome to the Vzense API documentation. This documentation enables you to quickly get started in your development efforts to programmatically interact with the Vzense TOF RGBD Camera (DCAM710).
 */
 
 #include "VZense_define.h"
 
 /**
-* @brief 		Initializes the API on the device. This function must be invoked before any other VZense APIs.
+* @brief 		Initializes the API on the device. This function must be invoked before any other Vzense APIs.
 * @return		::PsRetOK if the function succeeded, or one of the error values defined by ::PsReturnStatus.
 */
 VZENSE_C_API_EXPORT PsReturnStatus Ps2_Initialize();
 
 /**
-* @brief 		Shuts down the API on the device and clears all resources allocated by the API. After invoking this function, no other VZense APIs can be invoked.
+* @brief 		Shuts down the API on the device and clears all resources allocated by the API. After invoking this function, no other Vzense APIs can be invoked.
 * @return		::PsRetOK	if the function succeeded, or one of the error values defined by ::PsReturnStatus.
 */
 VZENSE_C_API_EXPORT PsReturnStatus Ps2_Shutdown();

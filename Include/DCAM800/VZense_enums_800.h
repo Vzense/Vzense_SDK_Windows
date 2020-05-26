@@ -155,6 +155,7 @@ typedef enum
 	DCAM710 = 710,
 	DCAM800 = 800,
 	DCAM_MIPI = 801,
+	DCAM800LITE = 802,
 	MAX,
 }PsDeviceType;
 #endif /* VZENSE_ENUMS_800_H */
